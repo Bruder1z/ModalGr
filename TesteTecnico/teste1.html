@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+
+    <h2>Cadastro</h2>
+    <form id="cadastroForm">
+        <label>Nome: <input type="text" id="nome" required placeholder="Digite seu nome"></label><br><br>
+        <label>CPF: <input type="text" id="cpf" required placeholder="Digite seu CPF"></label><br><br>
+        <label>Email: <input type="email" id="email" required placeholder="Digite seu E-mail"></label><br><br>
+        <label>Senha: <input type="password" id="senha" required placeholder="Digite sua Senha"></label><br><br>
+        <label>Confirmar Senha: <input type="password" id="confirmarSenha" required placeholder="Digite sua Senha Novamente"></label><br><br>
+        <button type="button" onclick="realizarCadastro()">Cadastrar</button>
+    </form>
+
+    
+    <div id="erros"></div>
+
+    <script>
+        function cadastro({ nome, cpf, email, senha, confirmarSenha }) {
+            let erros = [];
+
+            if (!nome) erros.push("O campo Nome deve ser preenchido");
+            if (!cpf) erros.push("O campo CPF é obrigatório");
+            if (!email) erros.push("O campo email deve ser preenchido");
+            if (!senha) erros.push("Senha é obrigatória");
+            if (!confirmarSenha) erros.push("Confirmar senha é um campo obrigatório");
+            if (senha !== confirmarSenha) erros.push("As Senhas não Coincidem");
+
+            return erros;
+        }
+
+        function realizarCadastro() {
+            const nome = document.getElementById("nome").value;
+            const cpf = document.getElementById("cpf").value;
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+            const confirmarSenha = document.getElementById("confirmarSenha").value;
+
+            const erros = cadastro({ nome, cpf, email, senha, confirmarSenha });
+            const divErros = document.getElementById("erros");
+
+            if (erros.length > 0) {
+                divErros.innerHTML = erros.join(" / ");
+                divErros.style.color = "red"; 
+            } else {
+                divErros.innerHTML = "Cadastro realizado com sucesso!";
+                divErros.style.color = "green"; 
+            }
+        }
+    </script>
+
+</body>
+</html>
